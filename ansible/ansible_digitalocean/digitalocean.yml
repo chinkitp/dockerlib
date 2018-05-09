@@ -1,0 +1,41 @@
+- hosts: digitalocean
+
+  vars:
+    do_token: ef1255f529e6d3e718e4135819a82a1b735316a236373fa33d21a564cbd140cf
+    droplets:
+    - droplet-one
+    - droplet-two      
+
+  tasks:
+
+  - name: ensure ssh key exists
+    user: >
+      name={{ ansible_user_id }}
+      generate_ssh_key=yes
+      ssh_key_file=.ssh/id_rsa
+  
+  - name: ensure key exists at DigitalOcean
+    digital_ocean: >
+      state=present
+      command=ssh
+      name=my_ssh_key
+      ssh_pub_key={{ lookup('file', '~/.ssh/id_rsa.pub') }}
+      api_token={{ do_token }}
+    register: my_ssh_key
+
+
+
+  - name: ensure droplet one exists
+    digital_ocean: >
+      state=present
+      command=droplet
+      name={{ item }}
+      size_id=512mb
+      region_id=sgp1
+      unique_name=yes
+      image_id=ubuntu-14-04-x64
+      ssh_key_ids={{ my_ssh_key.ssh_key.id }}
+      api_token={{ do_token }}
+    with_items: droplets
+    register: droplet_one
+
