@@ -1,0 +1,11 @@
+version: '2'
+services:
+  # api:
+  #   build: 
+  #     context: ./host
+  #   image: ansible:latest
+  digitalocean:
+    build: 
+      context: ./ansible_digitalocean
+    image: ansible_digitalocean:latest
+  

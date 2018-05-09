@@ -1,0 +1,10 @@
+version: '2'
+services:
+  api:
+    build: 
+      context: ./server
+    image: nodejswebserver:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server/:/code
