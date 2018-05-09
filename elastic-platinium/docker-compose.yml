@@ -12,7 +12,8 @@ services:
       - "9200:9200"
     environment:
       ES_JAVA_OPTS: "-Xmx1g -Xms1g"
-      ELASTIC_PASSWORD: MagicWord
+      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
     ulimits:
       memlock:
         soft: -1
@@ -35,9 +36,9 @@ services:
       - ./kibana/config/:/usr/share/kibana/config:ro
     ports:
       - "5601:5601"
-    environment:  
-      elasticsearch.username: elastic
-      elasticsearch.password: MagicWord       
+    environment:
+      ELASTICSEARCH_USERNAME: ${ELASTIC_USERNAME}
+      ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD}
     networks:
       - net
     depends_on:
