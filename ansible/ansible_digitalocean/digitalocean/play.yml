@@ -1,3 +1,4 @@
 - hosts: digitalocean
   roles:
-    - role: digitalocean
+    - digitalocean
+  
