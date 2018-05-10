@@ -8,7 +8,6 @@
     register: my_ssh_key
 
 
-
   - name: ensure droplets exist
     digital_ocean: >
       state=present
@@ -23,3 +22,7 @@
     with_items: "{{droplets}}"
     register: droplet_details
 
+  - debug: 
+      msg="IP is {{ item }}"
+    with_items:
+     - "{{ droplet_details.results|map(attribute='droplet.ip_address')|list }}"
