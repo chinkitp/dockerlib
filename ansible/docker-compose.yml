@@ -8,4 +8,5 @@ services:
     build: 
       context: ./ansible_digitalocean
     image: ansible_digitalocean:latest
+    tty: true
   

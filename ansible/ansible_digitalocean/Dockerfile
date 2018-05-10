@@ -1,13 +1,15 @@
-FROM ubuntu:16.04
+FROM alpine
 
-RUN apt-get --yes update \
-    && apt-get --yes install software-properties-common \
-    && apt-add-repository --yes ppa:ansible/ansible \
-    && apt-get --yes update \
-    && apt-get --yes install ansible \
-    && apt-get --yes install python-pip \
-    && pip install 'dopy>=0.3.2'
+RUN apk update
+# RUN addgroup -S alpine_group
+# RUN adduser -S alpine_user -G alpine_group
+RUN apk add openssh
+RUN apk add -u ansible
+RUN apk add py-pip
+RUN pip install 'dopy==0.3.3'
 
 COPY . /
+ADD ./.ssh /root/.ssh
+RUN chmod 400 ~/.ssh/id_rsa
 
 RUN ansible-playbook ./digitalocean/play.yml
