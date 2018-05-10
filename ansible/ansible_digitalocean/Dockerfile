@@ -6,10 +6,10 @@ RUN apk update
 RUN apk add openssh
 RUN apk add -u ansible
 RUN apk add py-pip
-RUN pip install 'dopy==0.3.3'
+RUN pip install 'dopy==0.3.7'
 
 COPY . /
 ADD ./.ssh /root/.ssh
 RUN chmod 400 ~/.ssh/id_rsa
 
-RUN ansible-playbook ./digitalocean/play.yml
+# RUN ansible-playbook ./digitalocean/play.yml
