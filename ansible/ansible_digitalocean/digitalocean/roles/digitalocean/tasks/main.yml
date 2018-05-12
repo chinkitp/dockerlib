@@ -24,6 +24,7 @@
     with_items: "{{droplets}}"
     register: droplet_details
 
+
   - name: Add new host to our inventory.
     add_host:
       name: "{{ item }}"
@@ -43,3 +44,9 @@
     tasks:
     - debug: var=ansible_all_ipv4_addresses
     - debug: var=ansible_default_ipv4.address
+
+  - debug: 
+      msg="IP is {{ item }}"
+    with_items:
+     - "{{ droplet_details.results|map(attribute='droplet.ip_address')|list }}"
+
