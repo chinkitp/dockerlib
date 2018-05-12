@@ -1,0 +1,12 @@
+---
+version: '3.4'
+services:
+
+  awscli-dev:
+    build: 
+      context: ./src 
+    image: chinkitp/s3cmd-dev:latest
+    volumes:
+      - ./data:/data
+    entrypoint: sh
+    tty: true
