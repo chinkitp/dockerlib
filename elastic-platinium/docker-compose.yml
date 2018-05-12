@@ -11,9 +11,9 @@ services:
     ports:
       - "9200:9200"
     environment:
-      ES_JAVA_OPTS: "-Xmx1g -Xms1g"
-      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
-      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      ES_JAVA_OPTS: "-Xmx2g -Xms2g"
+      # ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      # ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
     ulimits:
       memlock:
         soft: -1
@@ -36,13 +36,25 @@ services:
       - ./kibana/config/:/usr/share/kibana/config:ro
     ports:
       - "5601:5601"
-    environment:
-      ELASTICSEARCH_USERNAME: ${ELASTIC_USERNAME}
-      ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD}
+    # environment:
+    #   ELASTICSEARCH_USERNAME: ${ELASTIC_USERNAME}
+    #   ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD}
     networks:
       - net
     depends_on:
       - elasticsearch
+
+
+  esrally:
+    build:
+      context: ./esrally
+    image: chinkitp/esrally:latest
+    networks:
+      - net    
+    entrypoint: sh
+    tty: true
+    depends_on:
+      - kibana
 
 networks:
   net:
