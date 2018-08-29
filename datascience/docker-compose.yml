@@ -1,0 +1,13 @@
+---
+version: '3.4'
+services:
+
+  datascience:
+    build: 
+      context: ./src 
+    image: chinkitp/datascience-notebook:latest
+    ports:
+      - "8888:8888"    
+    volumes:
+      - ./src/work:/home/jovyan/work
+    
