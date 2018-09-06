@@ -11,4 +11,5 @@ services:
     volumes:
       - ./src/work:/home/jovyan/work
       - ./../../../../../04-BigData/bitcoin-blocks/:/bitcoin-blocks/
+      - ./../../../../../04-BigData/abr/:/abr/
     
