@@ -7,7 +7,8 @@ services:
       context: ./src 
     image: chinkitp/all-spark-notebook:latest
     ports:
-      - "8888:8888"    
+      - "8888:8888"   
+      - "4040:4040" 
     volumes:
       - ./src/work:/home/jovyan/work
       - ./../../../../../04-BigData/bitcoin-blocks/:/bitcoin-blocks/
